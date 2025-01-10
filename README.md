@@ -114,9 +114,3 @@ RNBaseProject/
 
 ## Contribution
 Feel free to fork the repository, make changes, and create a pull request. Contributions are welcome!
-
----
-
-## License
-This project is licensed under the MIT License.
-
