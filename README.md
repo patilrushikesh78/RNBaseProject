@@ -1,79 +1,122 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# RNBaseProject
 
-# Getting Started
+## App Information
+**RNBaseProject** is a starter template for a React Native application. It includes essential configurations and boilerplate code to kickstart your project efficiently. The app follows industry best practices, incorporating state management with Redux, navigation with React Navigation, and API integration using Axios.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+### Features
+- **React Native** for building cross-platform apps.
+- **Redux Toolkit** for state management.
+- **React Navigation** for handling navigation flows.
+- **Axios** for API integration with interceptors.
+- Customizable project structure for scalability and maintainability.
 
-## Step 1: Start the Metro Server
+---
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Project Setup
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Prerequisites
+- **Node.js** version >= 18
+- **React Native CLI** installed globally
+- An Android or iOS simulator/device
 
-```bash
-# using npm
-npm start
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/RNBaseProject.git
+   cd RNBaseProject
+   ```
 
-# OR using Yarn
-yarn start
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Add environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```
+   BASE_URL=https://fakestoreapi.com
+   ```
+
+4. Run the project:
+   - For Android:
+     ```bash
+     npm run android
+     ```
+   - For iOS:
+     ```bash
+     npm run ios
+     ```
+
+5. Start the Metro bundler:
+   ```bash
+   npm start
+   ```
+
+### Lint and Test
+- Run the linter:
+  ```bash
+  npm run lint
+  ```
+- Run tests:
+  ```bash
+  npm run test
+  ```
+
+---
+
+## Used Libraries
+| Library                           | Version  | Purpose                                 |
+|-----------------------------------|----------|-----------------------------------------|
+| React Native                      | 0.76.2   | Core framework for building the app     |
+| React                             | 18.3.1   | Core React library                      |
+| Redux Toolkit                     | 2.5.0    | State management                        |
+| React Navigation                  | 7.0.14   | Navigation framework                    |
+| Axios                             | 1.7.9    | API integration                         |
+| React Native Dotenv               | 3.4.11   | Environment variables management         |
+| React Native Gesture Handler      | 2.21.2   | Gesture handling in navigation          |
+| React Native Vector Icons         | 10.2.0   | Icons for the app                       |
+| React Native Reanimated           | 3.16.6   | Animations library                      |
+
+---
+
+## Project Structure
+```
+RNBaseProject/
+├── src/
+│   ├── navigation/
+│   │   └── AppNavigator.js         # Navigation configuration
+│   ├── redux/
+│   │   ├── store.js                # Redux store setup
+│   │   └── userSlice.js            # Redux slice for user state
+│   ├── screens/
+│   │   ├── HomeScreen.js           # Home screen with API data fetching
+│   │   ├── DetailsScreen.js        # Details screen navigation example
+│   │   └── ProfileScreen.js        # Profile screen with state updates
+│   ├── services/
+│   │   └── ApiService.js           # Axios service with interceptors
+│   ├── styles/
+│   │   └── globalStyles.js         # Global styles for the app
+│   └── App.js                      # Entry point of the app
+├── .env                            # Environment variables
+├── package.json                    # Project metadata and dependencies
+└── README.md                       # Documentation (you're here!)
 ```
 
-## Step 2: Start your Application
+---
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## How to Use
+- **Navigation**: Defined in `AppNavigator.js` using React Navigation's stack-based routing.
+- **State Management**: Redux is configured in `store.js` with slices defined in `userSlice.js`.
+- **API Integration**: Axios setup in `ApiService.js` for making network requests.
+- **Styling**: Centralized styles defined in `globalStyles.js`.
 
-### For Android
+---
 
-```bash
-# using npm
-npm run android
+## Contribution
+Feel free to fork the repository, make changes, and create a pull request. Contributions are welcome!
 
-# OR using Yarn
-yarn android
-```
+---
 
-### For iOS
+## License
+This project is licensed under the MIT License.
 
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
