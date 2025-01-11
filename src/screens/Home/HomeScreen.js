@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, FlatList, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styles from './styles';
 import apiService from '../../services/ApiService';
@@ -8,6 +8,9 @@ import EmptyView from '../../components/EmptyView';
 import apiEndpoints from '../../utils/apiEndpoints';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomButton from '../../components/CustomButton';
+import Strings from '../../constants/strings';
+import ProductItem from './ProductItem';
+import { showToast } from '../../utils/utils';
 
 const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -39,36 +42,33 @@ const HomeScreen = ({ navigation }) => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('accessToken');
-
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
       });
     } catch (error) {
-      console.error('Logout failed', error);
+      showToast('error', 'Error', 'Failed to logout.');
     }
   };
 
   const handleDeleteProduct = async (productId) => {
     Alert.alert(
-      "Delete Product",
-      "Are you sure you want to delete this product?",
+      Strings.msgs.deleteProduct,
+      Strings.msgs.sureWantToDeleteProduct,
       [
         {
-          text: "Cancel",
+          text: Strings.lables.cancel,
           style: "cancel"
         },
         {
-          text: "Delete", onPress: async () => {
-            // Make the delete API call
+          text: Strings.lables.delete, onPress: async () => {
             const { error } = await apiHandler(
               dispatch,
-              () => apiService.delete(`${apiEndpoints.products.list}/${productId}`),
-              'Product deleted successfully!'
+              () => apiService.delete(apiEndpoints.products.delete(productId)),
+              Strings.msgs.productDeletedSuccessfully
             );
 
             if (!error) {
-              // Remove the deleted product from the local state
               setData((prevData) => prevData.filter(item => item.id !== productId));
             }
           }
@@ -77,11 +77,21 @@ const HomeScreen = ({ navigation }) => {
     );
   };
 
+  const renderProductItem = ({ item }) => {
+    return (
+      <ProductItem
+        item={item}
+        handleEditProduct={handleEditProduct}
+        handleDeleteProduct={handleDeleteProduct}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.buttonContainer, { marginTop: 0 }]}>
-        <CustomButton onPress={handleAddProduct} style={styles.button} text={'Add'} textStyle={styles.buttonText} />
-        <CustomButton onPress={handleLogout} style={styles.button} text={'Logout'} textStyle={styles.buttonText} />
+        <CustomButton onPress={handleAddProduct} style={styles.button} text={Strings.lables.add} textStyle={styles.buttonText} />
+        <CustomButton onPress={handleLogout} style={styles.button} text={Strings.lables.logout} textStyle={styles.buttonText} />
       </View>
 
       {data.length > 0 ?
@@ -89,17 +99,8 @@ const HomeScreen = ({ navigation }) => {
           style={{ marginTop: 10 }}
           data={data}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.categoryText}>Category : {item.category.name}</Text>
-              <Text style={styles.priceText}>Price : ${item.price.toFixed(2)}</Text>
-              <View style={[styles.buttonContainer,{marginTop:5}]}>
-                <CustomButton onPress={() => handleEditProduct(item)} style={styles.button} text={'Edit'} textStyle={styles.buttonText} />
-                <CustomButton onPress={() => handleDeleteProduct(item.id)} style={styles.button} text={'Delete'} textStyle={styles.buttonText} />
-              </View>
-            </View>
-          )}
+          renderItem={renderProductItem}
+
         /> : <EmptyView />
       }
     </View>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import globalStyles from '../../styles/globalStyles';
+import Strings from '../../constants/strings';
 
 
 const SplashScreen = ({ navigation }) => {
@@ -19,7 +20,7 @@ const SplashScreen = ({ navigation }) => {
   
     return (
       <View style={globalStyles.container}>
-        <Text style={globalStyles.title}>Welcome to the App</Text>
+        <Text style={globalStyles.title}>{Strings.msgs.welcome}</Text>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );

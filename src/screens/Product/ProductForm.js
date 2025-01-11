@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
 import { apiHandler } from '../../utils/apiHandler';
@@ -10,13 +10,11 @@ import apiEndpoints from '../../utils/apiEndpoints';
 import { showToast } from '../../utils/utils';
 import globalStyles from '../../styles/globalStyles';
 import CustomButton from '../../components/CustomButton';
+import Strings from '../../constants/strings';
 
 const ProductForm = () => {
-
     const route = useRoute();
     const { product, onUpdate } = route.params || {};
-    console.log("ProductForm", product?.price);
-
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [name, setName] = useState(product?.title || '');
@@ -27,7 +25,7 @@ const ProductForm = () => {
 
     useEffect(() => {
         navigation.setOptions({
-            title: product ? 'Edit Product' : 'Add Product',
+            title: product ? Strings.lables.editProduct : Strings.lables.addProduct,
         });
         if (product) {
             setName(product.title);
@@ -51,7 +49,7 @@ const ProductForm = () => {
 
     const handleSubmit = async () => {
         if (!name || !price || !categoryId || !description) {
-            showToast('error', 'Error', 'All fields are required!');
+            showToast('error', 'Error', Strings.msgs.allFieldRequired);
             return;
         }
         const newProduct = { title: name, price, categoryId, description, images: ['https://placeimg.com/640/480/any?r=0.9178516507833767'] };
@@ -59,7 +57,7 @@ const ProductForm = () => {
             ? () => apiService.put(apiEndpoints.products.update(product.id), newProduct)
             : () => apiService.post(apiEndpoints.products.create, newProduct);
 
-        const { data, error } = await apiHandler(dispatch, apiCall, product?.id ? 'Product Updated Successfully.' : 'Product Added Successfully.');
+        const { data, error } = await apiHandler(dispatch, apiCall, product?.id ? Strings.msgs.productUpdatedSuccessfully : Strings.msgs.productAddedSuccessfully);
 
         if (!error) {
             onUpdate();
@@ -70,36 +68,36 @@ const ProductForm = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.inputTitle}>Product Name:</Text>
+            <Text style={styles.inputTitle}>{Strings.lables.productName}</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Product Name"
+                placeholder={Strings.lables.productName}
                 value={name}
                 onChangeText={setName}
             />
-            <Text style={styles.inputTitle}>Price:</Text>
+            <Text style={styles.inputTitle}>{Strings.lables.price}</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Price"
+                placeholder={Strings.lables.price}
                 value={price.toString()}
                 onChangeText={setPrice}
                 keyboardType="numeric"
             />
-            <Text style={styles.inputTitle}>Description:</Text>
+            <Text style={styles.inputTitle}>{Strings.lables.desc}</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Description"
+                placeholder={Strings.lables.desc}
                 value={description}
                 onChangeText={setDescription}
             />
-            <Text style={styles.inputTitle}>Select Category:</Text>
+            <Text style={styles.inputTitle}>{Strings.lables.selectCategory}</Text>
             <CategoryDropdown
                 categories={categories}
                 categoryId={categoryId}
                 setCategoryId={setCategoryId}
             />
             <CustomButton onPress={handleSubmit} style={[globalStyles.button, { marginTop: 10 }]}
-                text={product ? 'Update' : 'Add'} textStyle={globalStyles.buttonText} />
+                text={product ? Strings.lables.update : Strings.lables.add} textStyle={globalStyles.buttonText} />
         </View>
     );
 };

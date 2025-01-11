@@ -10,7 +10,7 @@ export const apiHandler = async (dispatch, apiCall, successMessage = null) => {
         }
         return { data: response.data, status: response.status, error: null };
     } catch (error) {
-        console.error('API Error:', error);
+        // console.error('API Error:', error);
         showToast('error', 'Error', error.response?.data?.message || 'Something went wrong.');
         return { data: null, status: error.response?.status, error: error.response?.data };
     } finally {

@@ -12,7 +12,7 @@ export default StyleSheet.create({
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
   input: { height: 50, borderColor: '#ccc', borderWidth: 1, marginBottom: 20, paddingHorizontal: 10, borderRadius: 5 },
   button: {
-    backgroundColor: '#007BFF',  // Button color
+    backgroundColor: '#007BFF',  
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 5,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   buttonText: {
-    color: '#fff',  // Text color
+    color: '#fff',  
     fontSize: 18,
     fontWeight: 'bold',
   },

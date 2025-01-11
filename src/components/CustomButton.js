@@ -8,7 +8,7 @@ const CustomButton = ({ style, onPress, text, textStyle, isLoading = false }) =>
         {isLoading ? (
           <ActivityIndicator size="small" color="white" style={{ marginRight: 10 }} />
         ) : null}
-        
+
         <Text style={[textStyle]}>{isLoading ? '' : text}</Text>
       </View>
     </TouchableOpacity>

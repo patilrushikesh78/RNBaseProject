@@ -13,6 +13,7 @@ import apiEndpoints from '../../utils/apiEndpoints';
 import { showToast } from '../../utils/utils';
 import { validateLoginData } from '../../utils/validation';
 import CustomButton from '../../components/CustomButton';
+import Strings from '../../constants/strings';
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('john@mail.com');
@@ -38,10 +39,10 @@ const LoginScreen = ({ navigation }) => {
                 await AsyncStorage.setItem('accessToken', token);
                 navigation.replace('HomeStack');
             } else {
-                showToast('error', 'Error', 'Invalid credentials');
+                showToast('error', 'Error', Strings.msgs.invalidCreds);
             }
         } catch (error) {
-            showToast('error', 'Error', error.response?.data?.detail || 'Something went wrong.');
+            showToast('error', 'Error', error.response?.data?.detail || Strings.msgs.somethingWentWrong);
         } finally {
             setLoading(false);
         }
@@ -49,10 +50,10 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={globalStyles.title}>Login</Text>
+            <Text style={globalStyles.title}>{Strings.lables.login}</Text>
             <TextInput
                 style={globalStyles.input}
-                placeholder="Email"
+                placeholder={Strings.lables.email}
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
@@ -60,14 +61,14 @@ const LoginScreen = ({ navigation }) => {
             />
             <TextInput
                 style={globalStyles.input}
-                placeholder="Password"
+                placeholder={Strings.lables.password}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
             />
 
             <CustomButton onPress={handleLogin} style={[globalStyles.button, { marginTop: 10 }]}
-                text={loading ? 'Logging in...' : 'Login'} textStyle={globalStyles.buttonText} isLoading={loading} />
+                text={loading ? Strings.lables.loggingIn : Strings.lables.login} textStyle={globalStyles.buttonText} isLoading={loading} />
 
         </View>
     );

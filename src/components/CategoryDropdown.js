@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Strings from '../constants/strings';
 
 const CategoryDropdown = ({ categories, categoryId, setCategoryId }) => {
   const data = categories?.map((category) => ({
@@ -16,7 +17,7 @@ const CategoryDropdown = ({ categories, categoryId, setCategoryId }) => {
         data={data}
         labelField="label"
         valueField="value"
-        placeholder="Select a Category"
+        placeholder={Strings.msgs.selectCategory}
         value={categoryId}
         onChange={(item) => setCategoryId(item.value)}
         placeholderStyle={styles.placeholderStyle}
