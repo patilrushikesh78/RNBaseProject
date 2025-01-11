@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity,  } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styles from './styles';
 import apiService from '../../services/ApiService';
@@ -35,10 +35,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('ProductForm', { onUpdate: fetchData });
   };
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('accessToken'); 
-  
+      await AsyncStorage.removeItem('accessToken');
+
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
@@ -46,6 +46,34 @@ const HomeScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Logout failed', error);
     }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    Alert.alert(
+      "Delete Product",
+      "Are you sure you want to delete this product?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete", onPress: async () => {
+            // Make the delete API call
+            const { error } = await apiHandler(
+              dispatch,
+              () => apiService.delete(`${apiEndpoints.products.list}/${productId}`),
+              'Product deleted successfully!'
+            );
+
+            if (!error) {
+              // Remove the deleted product from the local state
+              setData((prevData) => prevData.filter(item => item.id !== productId));
+            }
+          }
+        }
+      ]
+    );
   };
 
   return (
@@ -61,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
 
       {data.length > 0 ?
         <FlatList
-        style={{marginTop:10}}
+          style={{ marginTop: 10 }}
           data={data}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -69,12 +97,20 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.categoryText}>Category : {item.category.name}</Text>
               <Text style={styles.priceText}>Price : ${item.price.toFixed(2)}</Text>
-              <TouchableOpacity
-                style={styles.editButton}
-                onPress={() => handleEditProduct(item)}
-              >
-                <Text style={styles.editText}>Edit</Text>
-              </TouchableOpacity>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => handleEditProduct(item)}
+                >
+                  <Text style={styles.buttonText}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handleDeleteProduct(item.id)}
+                >
+                  <Text style={styles.buttonText}>Delete</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           )}
         /> : <EmptyView />

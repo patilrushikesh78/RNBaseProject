@@ -30,8 +30,8 @@ export default StyleSheet.create({
   categoryText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000',  
-    marginTop: 5,  
+    color: '#000',
+    marginTop: 5,
   },
   editButton: {
     marginTop: hp(1),
@@ -39,28 +39,33 @@ export default StyleSheet.create({
     backgroundColor: '#007bff',
     borderRadius: 5,
   },
-  editText: {
+  deleteButton: {
+    marginStart:10,
+    marginTop: hp(1),
+    padding: wp(4),
+    backgroundColor: '#007bff',
+    borderRadius: 5,
+  },
+  buttonText: {
     color: '#fff',
     fontSize: wp(4),
     textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // To divide space evenly
-    alignItems: 'center',
-    marginVertical: 10,
-    paddingHorizontal: 20,
-    width: '100%', // Make the container take full width
+    width: wp('100%'),
+    flex: 1, alignItems: 'center',
+    width: '100%',
   },
   button: {
     backgroundColor: '#3b82f6',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
-    flex: 1, 
-    marginHorizontal: 5, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    flex: 1,
+    marginHorizontal: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
@@ -69,7 +74,7 @@ export default StyleSheet.create({
   priceText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#000',  
-    marginTop: 5,   
+    color: '#000',
+    marginTop: 5,
   },
 });

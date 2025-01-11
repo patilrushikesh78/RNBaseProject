@@ -1,116 +1,92 @@
-# RNBaseProject
 
-## App Information
-**RNBaseProject** is a starter template for a React Native application. It includes essential configurations and boilerplate code to kickstart your project efficiently. The app follows industry best practices, incorporating state management with Redux, navigation with React Navigation, and API integration using Axios.
+# Product Management App
 
-### Features
-- **React Native** for building cross-platform apps.
-- **Redux Toolkit** for state management.
-- **React Navigation** for handling navigation flows.
-- **Axios** for API integration with interceptors.
-- Customizable project structure for scalability and maintainability.
+## Overview
+This React Native application provides a product management platform, allowing users to add, edit, delete, and view products. The app is equipped with authentication, loader management, category dropdowns, and toast notifications for user feedback. The backend API handles authentication, product CRUD operations, and category management.
 
----
+## Features
+- **Authentication**: Allows users to log in using email and password.
+- **Product Management**: Users can add, edit, or delete products.
+- **Category Selection**: Products can be categorized using a dropdown menu that fetches categories from the server.
+- **Toast Notifications**: Displays success, error, or information messages.
+- **Loader**: A loading indicator is shown when the app is performing an API call.
+- **Splash Screen**: Shows a welcome screen and checks if the user is logged in.
+- **State Management**: Utilizes Redux for managing user state and loader visibility.
 
-## Project Setup
+## Installation
 
-### Prerequisites
-- **Node.js** version >= 18
-- **React Native CLI** installed globally
-- An Android or iOS simulator/device
+To run the app locally, follow these steps:
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/RNBaseProject.git
-   cd RNBaseProject
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Add environment variables:
-   Create a `.env` file in the root directory and add the following:
-   ```
-   BASE_URL=https://fakestoreapi.com
-   ```
-
-4. Run the project:
-   - For Android:
-     ```bash
-     npm run android
-     ```
-   - For iOS:
-     ```bash
-     npm run ios
-     ```
-
-5. Start the Metro bundler:
-   ```bash
-   npm start
-   ```
-
-### Lint and Test
-- Run the linter:
-  ```bash
-  npm run lint
-  ```
-- Run tests:
-  ```bash
-  npm run test
-  ```
-
----
-
-## Used Libraries
-| Library                           | Version  | Purpose                                 |
-|-----------------------------------|----------|-----------------------------------------|
-| React Native                      | 0.76.2   | Core framework for building the app     |
-| React                             | 18.3.1   | Core React library                      |
-| Redux Toolkit                     | 2.5.0    | State management                        |
-| React Navigation                  | 7.0.14   | Navigation framework                    |
-| Axios                             | 1.7.9    | API integration                         |
-| React Native Dotenv               | 3.4.11   | Environment variables management         |
-| React Native Gesture Handler      | 2.21.2   | Gesture handling in navigation          |
-| React Native Vector Icons         | 10.2.0   | Icons for the app                       |
-| React Native Reanimated           | 3.16.6   | Animations library                      |
-
----
-
-## Project Structure
-```
-RNBaseProject/
-├── src/
-│   ├── navigation/
-│   │   └── AppNavigator.js         # Navigation configuration
-│   ├── redux/
-│   │   ├── store.js                # Redux store setup
-│   │   └── userSlice.js            # Redux slice for user state
-│   ├── screens/
-│   │   ├── HomeScreen.js           # Home screen with API data fetching
-│   │   ├── DetailsScreen.js        # Details screen navigation example
-│   │   └── ProfileScreen.js        # Profile screen with state updates
-│   ├── services/
-│   │   └── ApiService.js           # Axios service with interceptors
-│   ├── styles/
-│   │   └── globalStyles.js         # Global styles for the app
-│   └── App.js                      # Entry point of the app
-├── .env                            # Environment variables
-├── package.json                    # Project metadata and dependencies
-└── README.md                       # Documentation (you're here!)
+### 1. Clone the Repository
+```bash
+git clone https://github.com/patilrushikesh78/RNBaseProject.git
+cd RNBaseProject
 ```
 
----
+### 2. Install Dependencies
+Make sure you have Node.js and npm/yarn installed, then run:
+```bash
+npm install
+# or
+yarn install
+```
 
-## How to Use
-- **Navigation**: Defined in `AppNavigator.js` using React Navigation's stack-based routing.
-- **State Management**: Redux is configured in `store.js` with slices defined in `userSlice.js`.
-- **API Integration**: Axios setup in `ApiService.js` for making network requests.
-- **Styling**: Centralized styles defined in `globalStyles.js`.
+### 3. Set up Environment Variables
+Create a `.env` file in the root of the project and add your base URL for the API:
+```env
+BASE_URL=https://api.escuelajs.co/api/v1
+```
 
----
+### 4. Run the App
+To run the app on an Android or iOS emulator, use the following command:
 
-## Contribution
-Feel free to fork the repository, make changes, and create a pull request. Contributions are welcome!
+For Android:
+```bash
+npx react-native run-android
+```
+
+For iOS:
+```bash
+npx react-native run-ios
+```
+
+## Technologies Used
+- **React Native**: The framework for building the app.
+- **Redux Toolkit**: For state management.
+- **Axios**: For making API requests.
+- **React Navigation**: For navigating between screens.
+- **React Native Element Dropdown**: For the dropdown UI component.
+- **React Native Toast Message**: For displaying toast notifications.
+- **AsyncStorage**: For storing the authentication token.
+
+## Screens
+- **Splash Screen**: Displays a loading indicator and checks if the user is logged in.
+- **Login Screen**: Allows the user to log in with email and password.
+- **Home Screen**: Displays the list of products, with options to add, edit, or delete products.
+- **Product Form Screen**: Allows users to add or edit a product's details such as name, price, description, and category.
+- **Logout**: Provides an option to log out and clear the authentication token.
+
+## Components
+- **AppLoader**: A modal spinner that displays while an API request is being processed.
+- **CategoryDropdown**: A dropdown component that allows users to select a category from a list fetched from the server.
+- **EmptyView**: A view that is shown when there is no data to display (e.g., no products).
+- **ToastConfig**: Custom configuration for toast notifications to display success, error, and info messages.
+- **ProductForm**: Form used to add or edit products.
+
+## Redux State
+The app uses Redux for managing two pieces of state:
+- **Loader**: Displays a loading spinner when data is being fetched.
+- **User**: Stores user details such as name and age, as well as authentication state.
+
+## API Endpoints
+The following API endpoints are used by the app:
+
+- `POST /auth/login`: Logs the user in and returns an authentication token.
+- `GET /products`: Retrieves a list of products.
+- `POST /products`: Adds a new product.
+- `PUT /products/:id`: Updates an existing product.
+- `DELETE /products/:id`: Deletes a product.
+- `GET /categories`: Retrieves a list of product categories.
+
+## Error Handling
+If there is an error with the API request, a toast message will be shown with the error details. API errors are handled globally, displaying the error message if something goes wrong.
