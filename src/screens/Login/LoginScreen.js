@@ -12,6 +12,7 @@ import globalStyles from '../../styles/globalStyles';
 import apiEndpoints from '../../utils/apiEndpoints';
 import { showToast } from '../../utils/utils';
 import { validateLoginData } from '../../utils/validation';
+import CustomButton from '../../components/CustomButton';
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('john@mail.com');
@@ -19,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
 
     const handleLogin = async () => {
-        if(loading){
+        if (loading) {
             return
         }
         setLoading(true);
@@ -64,15 +65,10 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={setPassword}
                 secureTextEntry
             />
-            <TouchableOpacity
-                style={[globalStyles.button, { marginTop: 10 }]}
-                onPress={handleLogin}
-            >
-                <Text style={globalStyles.buttonText}>
-                    {loading ? 'Logging in...' : 'Login'}
-                </Text>
-            </TouchableOpacity>
-            {/* <Button title={loading ? 'Logging in...' : 'Login'} onPress={handleLogin} disabled={loading} /> */}
+
+            <CustomButton onPress={handleLogin} style={[globalStyles.button, { marginTop: 10 }]}
+                text={loading ? 'Logging in...' : 'Login'} textStyle={globalStyles.buttonText} isLoading={loading} />
+
         </View>
     );
 };

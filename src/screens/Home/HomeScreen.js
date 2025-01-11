@@ -7,6 +7,7 @@ import { apiHandler } from '../../utils/apiHandler';
 import EmptyView from '../../components/EmptyView';
 import apiEndpoints from '../../utils/apiEndpoints';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomButton from '../../components/CustomButton';
 
 const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -78,13 +79,9 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.buttonContainer,{marginTop:0}]}>
-        <TouchableOpacity onPress={handleAddProduct} style={styles.button}>
-          <Text style={styles.buttonText}>Add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleLogout} style={styles.button}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+      <View style={[styles.buttonContainer, { marginTop: 0 }]}>
+        <CustomButton onPress={handleAddProduct} style={styles.button} text={'Add'} textStyle={styles.buttonText} />
+        <CustomButton onPress={handleLogout} style={styles.button} text={'Logout'} textStyle={styles.buttonText} />
       </View>
 
       {data.length > 0 ?
@@ -97,19 +94,9 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.categoryText}>Category : {item.category.name}</Text>
               <Text style={styles.priceText}>Price : ${item.price.toFixed(2)}</Text>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.editButton}
-                  onPress={() => handleEditProduct(item)}
-                >
-                  <Text style={styles.buttonText}>Edit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.deleteButton}
-                  onPress={() => handleDeleteProduct(item.id)}
-                >
-                  <Text style={styles.buttonText}>Delete</Text>
-                </TouchableOpacity>
+              <View style={[styles.buttonContainer,{marginTop:5}]}>
+                <CustomButton onPress={() => handleEditProduct(item)} style={styles.button} text={'Edit'} textStyle={styles.buttonText} />
+                <CustomButton onPress={() => handleDeleteProduct(item.id)} style={styles.button} text={'Delete'} textStyle={styles.buttonText} />
               </View>
             </View>
           )}

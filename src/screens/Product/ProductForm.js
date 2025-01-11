@@ -9,6 +9,7 @@ import CategoryDropdown from '../../components/CategoryDropdown';
 import apiEndpoints from '../../utils/apiEndpoints';
 import { showToast } from '../../utils/utils';
 import globalStyles from '../../styles/globalStyles';
+import CustomButton from '../../components/CustomButton';
 
 const ProductForm = () => {
 
@@ -55,10 +56,10 @@ const ProductForm = () => {
         }
         const newProduct = { title: name, price, categoryId, description, images: ['https://placeimg.com/640/480/any?r=0.9178516507833767'] };
         const apiCall = product?.id
-            ? () => apiService.put(`/products/${product.id}`, newProduct)
-            : () => apiService.post('/products', newProduct);
+            ? () => apiService.put(apiEndpoints.products.update(product.id), newProduct)
+            : () => apiService.post(apiEndpoints.products.create, newProduct);
 
-        const { data, error } = await apiHandler(dispatch, apiCall, product?.id ? 'Product updated!' : 'Product added!');
+        const { data, error } = await apiHandler(dispatch, apiCall, product?.id ? 'Product Updated Successfully.' : 'Product Added Successfully.');
 
         if (!error) {
             onUpdate();
@@ -97,14 +98,8 @@ const ProductForm = () => {
                 categoryId={categoryId}
                 setCategoryId={setCategoryId}
             />
-            <TouchableOpacity
-                style={[globalStyles.button, { marginTop: 10 }]}
-                onPress={handleSubmit}
-            >
-                <Text style={globalStyles.buttonText}>
-                    {product ? 'Update Product' : 'Add Product'}
-                </Text>
-            </TouchableOpacity>
+            <CustomButton onPress={handleSubmit} style={[globalStyles.button, { marginTop: 10 }]}
+                text={product ? 'Update' : 'Add'} textStyle={globalStyles.buttonText} />
         </View>
     );
 };
