@@ -90,3 +90,10 @@ The following API endpoints are used by the app:
 
 ## Error Handling
 If there is an error with the API request, a toast message will be shown with the error details. API errors are handled globally, displaying the error message if something goes wrong.
+
+
+https://github.com/user-attachments/assets/ce2e25ec-5b1d-4502-a20f-acee99a623ca
+
+
+
+
