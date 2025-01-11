@@ -5,6 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: wp(5),
+    flexDirection:'column',
     backgroundColor: '#f5f5f5',
   },
   title: {
@@ -53,8 +54,7 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    width: wp('100%'),
-    flex: 1, alignItems: 'center',
+    alignItems: 'center',
     width: '100%',
   },
   button: {
@@ -63,6 +63,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 5,
     flex: 1,
+    minHeight:50,
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',

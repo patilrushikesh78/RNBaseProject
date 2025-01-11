@@ -78,9 +78,9 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+      <View style={[styles.buttonContainer,{marginTop:0}]}>
         <TouchableOpacity onPress={handleAddProduct} style={styles.button}>
-          <Text style={styles.buttonText}>Add Product</Text>
+          <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>Logout</Text>
